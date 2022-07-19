@@ -1,0 +1,131 @@
+.login{
+    background-color: #FED766;
+    min-height: 100vh;
+    display: flex;
+}
+
+.login__box{
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 50px 30px;
+    width: 300px;
+    height: 400px;
+    margin: auto auto;
+}
+
+.login__box > .brand{
+    color: #009FB7;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.login__box > h2 {
+    opacity: 0.6;
+    color: gray;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.login__box > h1{
+    font-size: 40px;
+    font-weight: 800;
+    color: #333;
+}
+
+.login__box span{
+    color: #009FB7;
+    font-weight: 900;
+    font-style: bold;
+}
+
+.login__box > .login__formBox > .inputs{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login__box > .login__formBox > .inputs > .passwordInput {
+    display: flex;
+    position: relative;
+}
+
+.login__box > .login__formBox > .inputs > .passwordInput > button {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+    width: 25px;
+    height: 25px;
+    opacity: 0.7;
+    margin: auto 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.login__box > .login__formBox > .inputs input{
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    height: 50px;
+    width: 100%;
+    background-color: transparent;
+    border-bottom: 1px solid #009FB7;
+    opacity: 0.7;
+    outline: none;
+    font-size: 15px;
+}
+
+
+.login__box > .login__formBox > .inputs .inputLabel{
+    text-align: left;
+    font-weight: 300;
+    color: #333;
+    margin-bottom: -6px;
+    z-index: 1;
+}
+
+.login__box > .login__formBox > .inputs > a{
+    color: #222;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.login__box > .login__formBox > .inputs > a:hover{
+    color: #009FB7;
+}
+
+.login__box > .login__formBox > .buttons{
+    display: flex;
+    flex-direction: row;
+    padding: 0 5px;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.login__box > .login__formBox > .buttons > .loginAccount{
+    background-color: #009FB7;
+}
+
+.login__box > .login__formBox > .buttons > button{
+    height: 45px;
+    width: 130px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #FFF;
+    margin: 0 2px;
+    font-weight: 600;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 1s;
+}
+.login__box > .login__formBox > .buttons > button:hover{
+    color: #FED766;
+}
+
