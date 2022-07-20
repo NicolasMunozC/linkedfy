@@ -1,8 +1,15 @@
-import React from 'react'
+import { auth, signOut } from '../../firebase'
+import {
+  Box,
+  Button,
+} from '@chakra-ui/react'
 
 function Account() {
+
   return (
-    <div>Account</div>
+      <Box>
+        <Button onClick={() => signOut(auth)}>Cerrar Sesion</Button>
+      </Box>
   )
 }
 

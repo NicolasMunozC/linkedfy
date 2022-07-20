@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/Auth/Login/Login';
 import Test from './pages/Test';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice'
 import PrivateRoute from './components/PrivateRoute';
 import Account from './pages/Account/Account';
+import Loader from './components/Loader/Loader';
 
 function App() {
 
@@ -37,8 +38,9 @@ function App() {
         <Route path='/' element={<h1>Hola</h1>} />
         <Route path='/account' element={<PrivateRoute user={user} children={<Account />} />} />
         <Route path='/test' element={<Test />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/:id' element={<UserProfile />} />
+        <Route path='/login' element={<Login user={user} />} />
+        <Route path='/loader' element={<Loader />} />
+        {/* <Route path='/:id' element={<UserProfile />} /> */}
       </Routes>
     </BrowserRouter>
   );
