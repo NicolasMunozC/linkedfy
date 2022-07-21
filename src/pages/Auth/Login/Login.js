@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../../../firebase'
+import { db, doc, setDoc } from '../../../firebase'
 import { useNavigate } from 'react-router-dom'
 import {
   Box, 
@@ -38,21 +39,39 @@ function Login({user}) {
   const passwordRef = useRef(null)
   const toast = useToast()
 
-  const register = (e) => {
+  const register =  (e) => {
       e.preventDefault()
       createUserWithEmailAndPassword(
           auth,
           emailRef.current.value,
           passwordRef.current.value
       ).then( (authUser) => {
+
         toast({
           title: 'Cuenta Creada! :D.',
           position: 'top-right',
           status: 'success'
         })
+        setDoc(doc(db, "users", authUser.user.uid), {
+          email: authUser.user.email,
+          priv: "user",
+          plan: "basic",
+          status: "new",
+        });
+
       }).catch( error => { 
+        if(error.message === "Firebase: Error (auth/email-already-in-use)."){
+          toast({
+            title: 'Ups! Error al crear la cuenta.',
+            description: "Parece que ya tienes una cuenta!.",
+            position: 'top-right',
+            status: 'error'
+          })
+          return
+        }
         toast({
-          title: 'Por Favor intente mas tarde.',
+          title: 'Ups! Error al crear la cuenta.',
+          description: "Hubo un problema, envianos un correo a soporte@linkedfy.com",
           position: 'top-right',
           status: 'error'
         })
@@ -72,11 +91,13 @@ function Login({user}) {
                 status: 'success'
               })
           }).catch( error => { 
+
             toast({
               title: 'Usuario o Contraseña erronea.',
               position: 'top-right',
               status: 'error'
             })
+
           })
   }
 

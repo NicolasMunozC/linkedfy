@@ -1,4 +1,4 @@
-import { useEffect, Suspense } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/Auth/Login/Login';
 import Test from './pages/Test';
@@ -36,7 +36,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<h1>Hola</h1>} />
-        <Route path='/account' element={<PrivateRoute user={user} children={<Account />} />} />
+        <Route path='/account' element={<PrivateRoute user={user} children={<Account user={user}/>} />} />
         <Route path='/test' element={<Test />} />
         <Route path='/login' element={<Login user={user} />} />
         <Route path='/loader' element={<Loader />} />
