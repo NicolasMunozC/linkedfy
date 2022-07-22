@@ -40,7 +40,7 @@ function App() {
         <Route path='/test' element={<Test />} />
         <Route path='/login' element={<Login user={user} />} />
         <Route path='/loader' element={<Loader />} />
-        {/* <Route path='/:id' element={<UserProfile />} /> */}
+        <Route path='/:id' element={<UserProfile user={user} />} />
       </Routes>
     </BrowserRouter>
   );

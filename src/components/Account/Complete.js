@@ -1,4 +1,5 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
+import axios from 'axios'
 import { 
     Box, 
     Button, 
@@ -7,7 +8,7 @@ import {
     Text,
     useToast
 } from '@chakra-ui/react'
-import { updateDoc, doc } from 'firebase/firestore'
+import { updateDoc, doc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 
 function Complete({user}) {
@@ -17,20 +18,49 @@ function Complete({user}) {
     const usernameRef = useRef(null)
     const tiktokRef = useRef(null)
     const toast = useToast()
+    const [isLoading, setIsLoading] = useState(false)
 
     async function submit(e){
         e.preventDefault()
+        setIsLoading(true)
 
         const userRef = doc(db, "users", user.uid)
+        const postsRef = doc(db, "posts", user.uid)
 
-        // Set the "capital" field of the city 'DC'
+
         await updateDoc(userRef, {
-          name: nameRef.current.value,
-          lastname: lastnameRef.current.value,
-          username: usernameRef.current.value,
-          tiktok: tiktokRef.current.value,
-          status: "completed"
+            name: nameRef.current.value,
+            lastname: lastnameRef.current.value,
+            username: usernameRef.current.value,
+            tiktok: tiktokRef.current.value,
+            status: true,
+          })
+
+        await axios.post('http://localhost:3001/api', {username: tiktokRef.current.value})
+        .then(function (res) {
+          const response = res.data
+          if(response.status === 200) {
+            setPosts(response.data)
+          }
         })
+        .catch(function (error) {
+            toast({
+                title: 'Ups!!!',
+                description: "No hemos encontrado tu usuario de Tik Tok",
+                position: 'top-right',
+                status: 'error'
+            })
+            return
+        });
+
+        async function setPosts(postsArray){
+            await setDoc(postsRef, {
+                postsImagesUrls: postsArray
+            })
+        }
+
+
+
 
         toast({
             title: 'Hurraaa!!!.',
@@ -38,10 +68,12 @@ function Complete({user}) {
             position: 'top-right',
             status: 'success'
         })
-        
+
+        setIsLoading(false)
+
         setTimeout( () => {
-        window.location.reload()
-        }, 3000)
+            window.location.reload()
+            }, 3000)
 
     }
 
@@ -67,7 +99,7 @@ function Complete({user}) {
                     <Text textAlign={'left'} fontWeight={300} color={'brand.black'} mb={'-6px'} zIndex={1}>Usuario Tik-Tok</Text>
                     <Input ref={tiktokRef} variant={'unstyled'}  type={'text'} placeholder='CalvinHarrisOficial' isRequired border={'none'} mb={'20px'} borderRadius={0} h={'50px'} w={'100%'} borderBottom={'1px solid #009FB7'} fontSize={'20px'} _hover={{borderColor: 'none'}} _placeholder={{opacity: '0.6'}}/>
                 </Box>
-                    <Button type='submit' bgColor={'brand.blue'} h={'45px'} w={'130px'} border={'none'} borderRadius={'5px'} color={'white'} ml={'2px'} fontWeight={600} fontSize={'15px'} _hover={{color: 'brand.yellow'}} >Continuar</Button>
+                    <Button type='submit' bgColor={'brand.blue'} h={'45px'} w={'130px'} border={'none'} borderRadius={'5px'} color={'white'} ml={'2px'} fontWeight={600} fontSize={'15px'} _hover={{color: 'brand.yellow'}} isLoading={isLoading && true}>Continuar</Button>
             </Box>
             </form>
 
