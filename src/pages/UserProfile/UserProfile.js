@@ -42,9 +42,13 @@ function UserProfile({user}) {
 const [userData, setUserData] = useState([])
 const dispatch = useDispatch()
 const [isLoading, setIsLoading] = useState(true)
+const [isOwner, setIsOwner] = useState(false)
 
 useEffect( () => {
   setTimeout( () => {
+    if(user){
+      setIsOwner(true)
+    }
     setIsLoading(false)
   },2000)
 })
@@ -86,7 +90,7 @@ useEffect( () => {
 
         <Box bgColor={'brand.black'} h={'130px'} borderBottomRadius={'20px'} />
 
-        <Box bgColor={'white'} maxW={'350px'} mx={'auto'} borderRadius={'10px'} display='flex' flexDir='column' mt={'-30px'} textAlign={'center'} shadow={'lg'} mb={'40px'}>
+        <Box bgColor={'white'} maxW={'350px'} mx={'auto'} borderRadius={'10px'} display='flex' flexDir='column' mt={'-30px'} textAlign={'center'} shadow={'lg'} mb={'20px'} pb={'30px'}>
           <Avatar size='xl' src='' mx={'auto'} mt={'-50px'} border={'2px solid #FFF'} mb={'5px'}/>
           <Heading fontFamily={'Poppins'} color={'brand.black'} fontSize={'18px'} fontWeight={400}>Nicolas Muñoz</Heading>
           <Heading fontFamily={'Poppins'} color={'brand.blue'}>NicholasNiculas</Heading>
@@ -98,6 +102,7 @@ useEffect( () => {
             <Box><IconButton color={'brand.black'} variant='link' boxSize={'sd'} fontSize={'xx-large'} _hover={{color: 'brand.blue'}} icon={<FaWhatsapp />} isRound/></Box>
             <Box><IconButton color={'brand.black'} variant='link' boxSize={'sd'} fontSize={'xx-large'} _hover={{color: 'brand.blue'}} icon={<FaTwitter />} isRound/></Box>
           </SimpleGrid>
+          {isOwner && <Button w={'fit-content'} mx={'auto'}>Modificar Perfil</Button>}
         </Box>
 
         <Box bgColor={'white'} maxW={'375px'} mx={'auto'} display='flex' flexDir='column' textAlign={'center'} pt={'20px'} pb={'50px'} >

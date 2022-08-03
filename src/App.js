@@ -7,8 +7,8 @@ import { auth, onAuthStateChanged } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice'
 import PrivateRoute from './components/PrivateRoute';
-import Account from './pages/Account/Account';
 import Loader from './components/Loader/Loader';
+import Profile from './components/Profile/Profile';
 
 function App() {
 
@@ -36,7 +36,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<h1>Hola</h1>} />
-        <Route path='/account' element={<PrivateRoute user={user} children={<Account user={user}/>} />} />
+        <Route path='/account' element={<PrivateRoute user={user} children={<Profile user={user}/>} />} />
         <Route path='/test' element={<Test />} />
         <Route path='/login' element={<Login user={user} />} />
         <Route path='/loader' element={<Loader />} />
